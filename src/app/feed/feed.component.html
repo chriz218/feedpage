@@ -1,0 +1,41 @@
+<shared-loading *ngIf="!profiles && !hasError"></shared-loading>
+<shared-error *ngIf="hasError" [message]="errorMessage"></shared-error>
+<nav *ngIf="profiles && !hasError" class="navbar bg-dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 me-0 text-secondary h1 w-25 text-start"><fa-icon [icon]="fasAngleLeft"></fa-icon></span>
+      <span class="navbar-brand mb-0 me-0 text-secondary h1 w-50 text-center">{{pageTitle}}</span>
+      <span class="navbar-brand mb-0 me-0 text-secondary h1 w-25 text-end">{{profiles.data.length}} <fa-icon [icon]="fasBahai"></fa-icon></span>
+    </div>
+</nav>
+<div *ngIf="profiles && !hasError" class="row p-3">
+  <div class="card col-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 p-2" *ngFor="let profile of profiles.data">
+    <nav class="navbar top-border-radius-round" [ngStyle]="{'background-color': profile.color.bar.bottom}">
+      <div class="container-fluid d-block truncate-one-line px-2">
+        <img [src]="profile.type === 'BP' ? profile.co_icon : profile.icon" class="card-round-icon"
+         onerror="src='/assets/blank.png'">
+        <span class="navbar-brand mb-0 h1 card-bar-resp-text"> {{profile.co_name ? profile.co_name : profile.name}}</span>
+      </div>
+    </nav>
+    <img *ngIf="profile.background_type === 1" [src]="profile.background_url" 
+      onerror="src='/assets/blank.png'" class="card-img-top">
+    <video *ngIf="profile.background_type === 2" loop [muted]="true" autoplay [src]="profile.background_url" class="card-img-top"></video>
+    <div class="card-body card-body-resp-text p-2" [ngStyle]="{'background-color': profile.color.bar.bottom}"> 
+      <div class="d-inline-block w-25 align-top text-center">
+        <img [src]="profile.icon" class="card-round-icon w-100" onerror="src='/assets/blank.png'">
+      </div>
+      <div class="truncate-one-line d-inline-block w-75 ps-2">
+        <p class="mb-1 truncate-one-line fw-bold">{{profile.name}}</p> 
+        <p class="mb-0 text-wrap">{{profile.description}}</p>
+        <p class="mb-1 truncate-one-line">{{getDate(+profile.timestamp)}}</p>
+      </div>
+      <div class="truncate-multi-line" [innerHTML]="profile.body | safeHtml"></div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark bottom-border-radius-round">
+      <div class="container-fluid px-3">
+        <span class="navbar-brand mb-0 me-0 text-secondary card-bar-resp-text"><fa-icon [ngClass]="{'text-light': profile.liked }" [icon]="farStar"></fa-icon> {{profile.like_count}} </span>
+        <span class="navbar-brand mb-0 me-0 text-secondary card-bar-resp-text"><fa-icon [ngClass]="{'text-light': profile.shared }" [icon]="fasShare"></fa-icon> {{profile.share_count}} </span>
+        <span class="navbar-brand mb-0 me-0 text-secondary card-bar-resp-text"> {{profile.view_count}} <fa-icon [ngClass]="{'text-light': profile.viewed }" [icon]="fasEye"></fa-icon></span>
+      </div>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.full-page {
+    min-height: 100vh;
+    background-color: #c0c0c0;
+}
+
+.translation {
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

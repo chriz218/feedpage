@@ -1,16 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './routing/app-routing.module';
+import { FeedComponent } from './feed/feed.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule
+    HttpClientModule,
+    SharedModule,
+    FontAwesomeModule,
+    AppRoutingModule
   ],
-  providers: [],
+  declarations: [
+    AppComponent,
+    FeedComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

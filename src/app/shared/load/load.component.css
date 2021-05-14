@@ -1,0 +1,9 @@
+div {
+    min-height: 100vh;
+    background-color: rgb(241, 242, 243);
+}
+
+img {
+    width: 40vw;
+    object-fit: cover;
+}
